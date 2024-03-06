@@ -60,20 +60,21 @@
       view.ui.add(searchWidget, {
         position: "bottom-right",
       });
+      //creating a locate widget
       const locateBtn = new Locate({
         view: view
       });
+      //creating a feature layer
+      const featureLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_013e4f22f11947f583db89fb1b391449_form/FeatureServer"
+      });
+      
       // Add the locate widget to the top left corner of the view
       view.ui.add(locateBtn, {
         position: "top-left",
       });    
-
-      //creating a feature layer
-      const featureLayer = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_013e4f22f11947f583db89fb1b391449_results/FeatureServer"
-      });
-      //adding the feature layer to the map
-      map.add(featureLayer);
+      
+     
      });
     </script>
 
