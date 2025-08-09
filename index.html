@@ -124,7 +124,9 @@
         
         // UW-Madison feature service layer
         const uwFeatureService = new FeatureLayer({
-          url: "https://services.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/service_74d171397bde46f0af4072281bb5e204/FeatureServer/0"
+          portalItem: {
+            id: "74d171397bde46f0af4072281bb5e204"
+          }
         });
         map.add(uwFeatureService);
 
