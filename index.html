@@ -15,6 +15,58 @@
      width: 100%;
     }
 
+    .sidebar {
+      position: absolute;
+      top: 0;
+      left: -320px;
+      width: 320px;
+      height: 100%;
+      background-color: white;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+      z-index: 15;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar-content {
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #0079c1;
+      margin-top: 0;
+      border-bottom: 2px solid #0079c1;
+      padding-bottom: 10px;
+    }
+
+    .sidebar p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      z-index: 20;
+      top: 10px;
+      left: 10px;
+      background-color: #0079c1;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .toggle-btn:hover {
+      background-color: #005a87;
+    }
+
      .addRecordBtn {
   position: absolute;
   z-index: 10;
@@ -40,19 +92,49 @@
   <script src="https://js.arcgis.com/4.26/"></script>
   <!-- loading the modules -->
   <script>
-    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer" ], 
-    (esriConfig,Map, MapView,Search, Locate, FeatureLayer) => {
+    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap" ], 
+    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap) => {
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
+      
+      // Create a simple map with hybrid basemap
       const map = new Map({
-      basemap: "satellite"
+        basemap: "hybrid"
       });
       
       const view = new MapView({
-      container: "viewDiv", // Reference to the DOM node that will contain the view
-      center: [-83.046, 42.34], // Longitude, latitude
-      zoom: 11, // Zoom level
-      map: map // References the map object
+        container: "viewDiv",
+        map: map,
+        center: [-86.0, 45.0], // Sleeping Bear Dunes area
+        zoom: 9
       });
+      
+      // Add layers after view loads
+      view.when(() => {
+        // Your survey layer
+        const featureLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_013e4f22f11947f583db89fb1b391449_form/FeatureServer"
+        });
+        map.add(featureLayer);
+        
+        // UW-Madison survey results layer (using a different approach)
+        const uwSurveyLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/service_3b7c0a7fb1ea488cbd74bedd7c8067e0/FeatureServer/0"
+        });
+        map.add(uwSurveyLayer);
+        
+        // UW-Madison feature service layer
+        const uwFeatureService = new FeatureLayer({
+          url: "https://services.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/service_74d171397bde46f0af4072281bb5e204/FeatureServer/0"
+        });
+        map.add(uwFeatureService);
+
+      // North Manitou Island boundaries
+        const northManitouLayer = new FeatureLayer({
+          url: "https://services1.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/SLBE_Boundary/FeatureServer/0"
+        });
+        map.add(northManitouLayer);
+      });
+      
       const searchWidget = new Search({
         view: view
       });
@@ -64,22 +146,57 @@
       const locateBtn = new Locate({
         view: view
       });
-      //creating a feature layer
-      const featureLayer = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_013e4f22f11947f583db89fb1b391449_form/FeatureServer"
-      });
       
       // Add the locate widget to the top left corner of the view
       view.ui.add(locateBtn, {
         position: "top-left",
       });    
       
+      // Sidebar toggle functionality
+      const toggleBtn = document.getElementById('toggleSidebar');
+      const sidebar = document.getElementById('sidebar');
+      
+      toggleBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+        toggleBtn.textContent = sidebar.classList.contains('open') ? '←' : '→';
+      });
      
      });
     </script>
 
   </head>
   <body>
+    <button id="toggleSidebar" class="toggle-btn">→</button>
+    
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-content">
+        <h2>Sleeping Bear Dunes National Lakeshore</h2>
+        <p>
+          Sleeping Bear Dunes National Lakeshore is a magnificent protected area located along the 
+          northwestern coast of Michigan's Lower Peninsula. Established in 1970, this stunning 
+          landscape encompasses over 71,000 acres of pristine shoreline, towering sand dunes, 
+          and diverse ecosystems.
+        </p>
+        <p>
+          The park is famous for its massive sand dunes that rise up to 450 feet above Lake Michigan, 
+          offering breathtaking panoramic views of the lake and surrounding landscape. The area gets 
+          its name from an Ojibwe legend about a mother bear and her two cubs who swam across Lake 
+          Michigan to escape a forest fire.
+        </p>
+        <p>
+          Visitors can enjoy numerous recreational activities including hiking the challenging 
+          Dune Climb, exploring historic sites like the Glen Haven Village, swimming at pristine 
+          beaches, and camping under star-filled skies. The park also protects important habitats 
+          for wildlife and rare plant species.
+        </p>
+        <p>
+          The Sleeping Bear Dunes were voted "The Most Beautiful Place in America" by viewers of 
+          ABC's Good Morning America in 2011, highlighting the area's exceptional natural beauty 
+          and cultural significance.
+        </p>
+      </div>
+    </div>
+    
     <a href="https://survey123.arcgis.com/share/013e4f22f11947f583db89fb1b391449"target="_blank" class="addRecordBtn">Add Record</a>
     <div id="viewDiv"></div>
     
