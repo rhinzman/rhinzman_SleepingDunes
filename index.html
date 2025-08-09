@@ -116,19 +116,7 @@
         });
         map.add(featureLayer);
         
-        // UW-Madison survey results layer (using a different approach)
-        const uwSurveyLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/service_3b7c0a7fb1ea488cbd74bedd7c8067e0/FeatureServer/0"
-        });
-        map.add(uwSurveyLayer);
         
-        // UW-Madison feature service layer
-        const uwFeatureService = new FeatureLayer({
-          portalItem: {
-            id: "74d171397bde46f0af4072281bb5e204"
-          }
-        });
-        map.add(uwFeatureService);
 
       
       });
