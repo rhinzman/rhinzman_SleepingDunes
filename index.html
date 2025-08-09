@@ -115,10 +115,47 @@
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_013e4f22f11947f583db89fb1b391449/FeatureServer"
         });
         map.add(featureLayer);
-        
-        
-
-      
+        // Add a popup template to the feature layer
+        featureLayer.popupTemplate = {
+          title: "{Name}",
+          content: [
+            {
+              type: "fields",
+              fieldInfos: [
+                {
+                  fieldName: "Description",
+                  label: "Description",
+                  format: {
+                    dateFormat: "short-date"
+                  }
+                }
+              ]
+            }
+          ]
+        };
+        // add another feature layer
+        const anotherFeatureLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Sleeping_Dunes/FeatureServer/2"
+        });
+        map.add(anotherFeatureLayer);
+        // Add a popup template to the feature layer
+        anotherFeatureLayer.popupTemplate = {
+          title: "{Name}",
+          content: [
+            {
+              type: "fields",
+              fieldInfos: [
+                {
+                  fieldName: "Description",
+                  label: "Description",
+                  format: {
+                    dateFormat: "short-date"
+                  }
+                }
+              ]
+            }
+          ]
+        };
       });
       
       const searchWidget = new Search({
