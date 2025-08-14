@@ -133,29 +133,16 @@
             }
           ]
         };
-        // add another feature layer
-        const anotherFeatureLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Sleeping_Dunes/FeatureServer/2"
+        
+        // Add UW-Madison layer with sublayer 2
+        const uwMadisonLayer = new FeatureLayer({
+          portalItem: {
+            id: "b489341a02814365a55222ff97716e96"
+          },
+          layerId: 2
         });
-        map.add(anotherFeatureLayer);
-        // Add a popup template to the feature layer
-        anotherFeatureLayer.popupTemplate = {
-          title: "{Name}",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "Description",
-                  label: "Description",
-                  format: {
-                    dateFormat: "short-date"
-                  }
-                }
-              ]
-            }
-          ]
-        };
+        map.add(uwMadisonLayer);
+        
       });
       
       const searchWidget = new Search({
