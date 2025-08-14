@@ -241,6 +241,52 @@
       view.ui.add(locateBtn, {
         position: "top-left",
       });    
+      
+      // Pan to location functionality
+      const locations = {
+        'sleeping-bear-dunes': { center: [-86.0585, 44.8614], zoom: 12 },
+        'glen-haven': { center: [-86.0194, 44.9039], zoom: 14 },
+        'dune-climb': { center: [-86.0378, 44.8328], zoom: 15 },
+        'empire-beach': { center: [-86.0564, 44.8086], zoom: 14 },
+        'pierce-stocking': { center: [-86.0456, 44.8456], zoom: 13 }
+      };
+      
+      // Wait for DOM to be ready
+      view.when(() => {
+        const locationSelect = document.getElementById('locationSelect');
+        const panButton = document.getElementById('panButton');
+        
+        panButton.addEventListener('click', () => {
+          const selectedValue = locationSelect.value;
+          if (selectedValue && locations[selectedValue]) {
+            const location = locations[selectedValue];
+            view.goTo({
+              center: location.center,
+              zoom: location.zoom
+            }, {
+              duration: 2000,
+              easing: "ease-in-out"
+            });
+          } else {
+            alert('Please select a location first!');
+          }
+        });
+        
+        // Also allow pan on selection change
+        locationSelect.addEventListener('change', () => {
+          const selectedValue = locationSelect.value;
+          if (selectedValue && locations[selectedValue]) {
+            const location = locations[selectedValue];
+            view.goTo({
+              center: location.center,
+              zoom: location.zoom
+            }, {
+              duration: 2000,
+              easing: "ease-in-out"
+            });
+          }
+        });
+      });
      
      });
     </script>
@@ -280,6 +326,21 @@
           ABC's Good Morning America in 2011, highlighting the area's exceptional natural beauty 
           and cultural significance.
         </p>
+        
+        <!-- Pan to Location Section -->
+        <div style="margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+          <h3 style="margin-top: 0; color: #0079c1; font-size: 16px;">Navigate to Location</h3>
+          <label for="locationSelect" style="display: block; margin-bottom: 8px; font-weight: bold; color: #333;">Select a location:</label>
+          <select id="locationSelect" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white;">
+            <option value="">Choose a location...</option>
+            <option value="sleeping-bear-dunes">Sleeping Bear Dunes</option>
+            <option value="glen-haven">Glen Haven Village</option>
+            <option value="dune-climb">Dune Climb</option>
+            <option value="empire-beach">Empire Beach</option>
+            <option value="pierce-stocking">Pierce Stocking Scenic Drive</option>
+          </select>
+          <button id="panButton" style="margin-top: 10px; background-color: #0079c1; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">Pan to Location</button>
+        </div>
         
         <!-- Survey Button moved to sidebar bottom -->
         <div style="margin-top: 30px; text-align: center;">
