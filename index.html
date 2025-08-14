@@ -152,8 +152,8 @@
   <script src="https://js.arcgis.com/4.26/"></script>
   <!-- loading the modules -->
   <script>
-    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend", "esri/renderers/SimpleRenderer", "esri/symbols/SimpleFillSymbol" ], 
-    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend, SimpleRenderer, SimpleFillSymbol) => {
+    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend", "esri/renderers/ClassBreaksRenderer", "esri/symbols/SimpleFillSymbol" ], 
+    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend, ClassBreaksRenderer, SimpleFillSymbol) => {
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       
       // Create a simple map with OpenStreetMap basemap
@@ -176,14 +176,54 @@
             id: "b489341a02814365a55222ff97716e96"
           },
           layerId: 2,
-          renderer: new SimpleRenderer({
-            symbol: new SimpleFillSymbol({
-              color: [0, 0, 0, 0], // Transparent fill (no fill)
-              outline: {
-                color: [0, 121, 193, 1], // Blue outline color (#0079c1)
-                width: 2
+          renderer: new ClassBreaksRenderer({
+            field: "OBJECTID", // Using OBJECTID for variation, you can change this to any numeric field
+            classBreakInfos: [
+              {
+                minValue: 0,
+                maxValue: 25,
+                symbol: new SimpleFillSymbol({
+                  color: [0, 0, 0, 0], // Transparent fill
+                  outline: {
+                    color: [0, 79, 121, 1], // Dark blue
+                    width: 2
+                  }
+                })
+              },
+              {
+                minValue: 25,
+                maxValue: 50,
+                symbol: new SimpleFillSymbol({
+                  color: [0, 0, 0, 0], // Transparent fill
+                  outline: {
+                    color: [0, 121, 193, 1], // Medium blue
+                    width: 2
+                  }
+                })
+              },
+              {
+                minValue: 50,
+                maxValue: 75,
+                symbol: new SimpleFillSymbol({
+                  color: [0, 0, 0, 0], // Transparent fill
+                  outline: {
+                    color: [64, 165, 221, 1], // Light blue
+                    width: 2
+                  }
+                })
+              },
+              {
+                minValue: 75,
+                maxValue: 999999,
+                symbol: new SimpleFillSymbol({
+                  color: [0, 0, 0, 0], // Transparent fill
+                  outline: {
+                    color: [128, 200, 240, 1], // Very light blue
+                    width: 2
+                  }
+                })
               }
-            })
+            ]
           })
         });
         map.add(uwMadisonLayer);
