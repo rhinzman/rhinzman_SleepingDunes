@@ -152,8 +152,8 @@
   <script src="https://js.arcgis.com/4.26/"></script>
   <!-- loading the modules -->
   <script>
-    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend" ], 
-    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend) => {
+    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend", "esri/renderers/SimpleRenderer", "esri/symbols/SimpleFillSymbol" ], 
+    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend, SimpleRenderer, SimpleFillSymbol) => {
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       
       // Create a simple map with OpenStreetMap basemap
@@ -175,7 +175,16 @@
           portalItem: {
             id: "b489341a02814365a55222ff97716e96"
           },
-          layerId: 2
+          layerId: 2,
+          renderer: new SimpleRenderer({
+            symbol: new SimpleFillSymbol({
+              color: [0, 0, 0, 0], // Transparent fill (no fill)
+              outline: {
+                color: [0, 121, 193, 1], // Blue outline color (#0079c1)
+                width: 2
+              }
+            })
+          })
         });
         map.add(uwMadisonLayer);
         
