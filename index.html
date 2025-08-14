@@ -89,6 +89,19 @@
 .addRecordBtn:hover {
   background-color: #005a87;
 }
+
+.esri-legend {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  max-width: 300px;
+  margin-bottom: 10px;
+}
+
+.esri-legend__title {
+  color: #0079c1;
+  font-weight: bold;
+}
     
    </style>
   <!-- importing the css and lic=braries from esri js -->
@@ -96,8 +109,8 @@
   <script src="https://js.arcgis.com/4.26/"></script>
   <!-- loading the modules -->
   <script>
-    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap" ], 
-    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap) => {
+    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend" ], 
+    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend) => {
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       
       // Create a simple map with OpenStreetMap basemap
@@ -153,9 +166,26 @@
       const searchWidget = new Search({
         view: view
       });
-      // Add the search widget to the top right corner of the view
+      
+      // Create legend widget
+      const legend = new Legend({
+        view: view,
+        style: {
+          type: "card",
+          layout: "auto"
+        }
+      });
+      
+      // Add the legend above the search widget
+      view.ui.add(legend, {
+        position: "bottom-right",
+        index: 1
+      });
+      
+      // Add the search widget to the bottom right corner of the view
       view.ui.add(searchWidget, {
         position: "bottom-right",
+        index: 0
       });
       //creating a locate widget
       const locateBtn = new Locate({
