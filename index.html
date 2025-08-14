@@ -193,14 +193,18 @@
           title: "{Name}",
           content: [
             {
+              type: "attachments"
+            },
+            {
               type: "fields",
               fieldInfos: [
                 {
                   fieldName: "Description",
-                  label: "Description",
-                  format: {
-                    dateFormat: "short-date"
-                  }
+                  label: "Description"
+                },
+                {
+                  fieldName: "Name",
+                  label: "Location Name"
                 }
               ]
             }
