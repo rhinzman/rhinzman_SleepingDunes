@@ -90,6 +90,28 @@
   background-color: #005a87;
 }
 
+.sidebar-survey-btn {
+  display: inline-block;
+  background-color: #0079c1;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  width: 80%;
+  text-align: center;
+}
+
+.sidebar-survey-btn:hover {
+  background-color: #005a87;
+  text-decoration: none;
+  color: white;
+}
+
 .esri-legend {
   background-color: rgba(255, 255, 255, 0.95);
   border-radius: 8px;
@@ -172,9 +194,9 @@
           }
         });
         
-        // Add the legend to the bottom right corner
+        // Add the legend to the top right corner
         view.ui.add(legend, {
-          position: "bottom-right",
+          position: "top-right",
           index: 0
         });
         
@@ -237,11 +259,15 @@
           ABC's Good Morning America in 2011, highlighting the area's exceptional natural beauty 
           and cultural significance.
         </p>
+        
+        <!-- Survey Button moved to sidebar bottom -->
+        <div style="margin-top: 30px; text-align: center;">
+          <a href="https://survey123.arcgis.com/share/013e4f22f11947f583db89fb1b391449" target="_blank" class="sidebar-survey-btn">Click to Locate</a>
+        </div>
       </div>
     </div>
     
     <div id="viewDiv">
-      <a href="https://survey123.arcgis.com/share/013e4f22f11947f583db89fb1b391449"target="_blank" class="addRecordBtn">Click to Locate</a>
     </div>
     
 
