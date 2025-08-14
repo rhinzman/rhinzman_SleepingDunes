@@ -152,8 +152,8 @@
   <script src="https://js.arcgis.com/4.26/"></script>
   <!-- loading the modules -->
   <script>
-    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend", "esri/renderers/UniqueValueRenderer", "esri/symbols/SimpleFillSymbol" ], 
-    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend, UniqueValueRenderer, SimpleFillSymbol) => {
+    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend", "esri/renderers/SimpleRenderer", "esri/symbols/SimpleFillSymbol" ], 
+    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend, SimpleRenderer, SimpleFillSymbol) => {
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       
       // Create a simple map with OpenStreetMap basemap
@@ -175,49 +175,7 @@
           portalItem: {
             id: "b489341a02814365a55222ff97716e96"
           },
-          layerId: 2,
-          renderer: new UniqueValueRenderer({
-            field: "Park_Name",
-            defaultSymbol: new SimpleFillSymbol({
-              color: [0, 0, 0, 0], // Transparent fill
-              outline: {
-                color: [128, 128, 128, 1], // Gray for unknown parks
-                width: 2
-              }
-            }),
-            uniqueValueInfos: [
-              {
-                value: "Sleeping Bear Dunes National Lakeshore",
-                symbol: new SimpleFillSymbol({
-                  color: [0, 0, 0, 0], // Transparent fill
-                  outline: {
-                    color: [0, 92, 230, 1], // Bright blue
-                    width: 3
-                  }
-                })
-              },
-              {
-                value: "Sleeping Bear Dunes NL",
-                symbol: new SimpleFillSymbol({
-                  color: [0, 0, 0, 0], // Transparent fill
-                  outline: {
-                    color: [0, 150, 255, 1], // Light blue
-                    width: 2.5
-                  }
-                })
-              },
-              {
-                value: "Sleeping Bear Dunes",
-                symbol: new SimpleFillSymbol({
-                  color: [0, 0, 0, 0], // Transparent fill
-                  outline: {
-                    color: [64, 196, 255, 1], // Sky blue
-                    width: 2
-                  }
-                })
-              }
-            ]
-          })
+          layerId: 2
         });
         map.add(uwMadisonLayer);
         
