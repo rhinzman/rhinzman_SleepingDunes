@@ -152,8 +152,8 @@
   <script src="https://js.arcgis.com/4.26/"></script>
   <!-- loading the modules -->
   <script>
-    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend", "esri/renderers/ClassBreaksRenderer", "esri/symbols/SimpleFillSymbol" ], 
-    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend, ClassBreaksRenderer, SimpleFillSymbol) => {
+    require([ "esri/config","esri/Map", "esri/views/MapView", "esri/widgets/Search","esri/widgets/Locate", "esri/layers/FeatureLayer", "esri/WebMap", "esri/widgets/Legend", "esri/renderers/UniqueValueRenderer", "esri/symbols/SimpleFillSymbol" ], 
+    (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap, Legend, UniqueValueRenderer, SimpleFillSymbol) => {
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       
       // Create a simple map with OpenStreetMap basemap
@@ -176,49 +176,42 @@
             id: "b489341a02814365a55222ff97716e96"
           },
           layerId: 2,
-          renderer: new ClassBreaksRenderer({
-            field: "OBJECTID", // Using OBJECTID for variation, you can change this to any numeric field
-            classBreakInfos: [
+          renderer: new UniqueValueRenderer({
+            field: "Park_Name",
+            defaultSymbol: new SimpleFillSymbol({
+              color: [0, 0, 0, 0], // Transparent fill
+              outline: {
+                color: [128, 128, 128, 1], // Gray for unknown parks
+                width: 2
+              }
+            }),
+            uniqueValueInfos: [
               {
-                minValue: 0,
-                maxValue: 25,
+                value: "Sleeping Bear Dunes National Lakeshore",
                 symbol: new SimpleFillSymbol({
                   color: [0, 0, 0, 0], // Transparent fill
                   outline: {
-                    color: [0, 79, 121, 1], // Dark blue
-                    width: 2
+                    color: [0, 92, 230, 1], // Bright blue
+                    width: 3
                   }
                 })
               },
               {
-                minValue: 25,
-                maxValue: 50,
+                value: "Sleeping Bear Dunes NL",
                 symbol: new SimpleFillSymbol({
                   color: [0, 0, 0, 0], // Transparent fill
                   outline: {
-                    color: [0, 121, 193, 1], // Medium blue
-                    width: 2
+                    color: [0, 150, 255, 1], // Light blue
+                    width: 2.5
                   }
                 })
               },
               {
-                minValue: 50,
-                maxValue: 75,
+                value: "Sleeping Bear Dunes",
                 symbol: new SimpleFillSymbol({
                   color: [0, 0, 0, 0], // Transparent fill
                   outline: {
-                    color: [64, 165, 221, 1], // Light blue
-                    width: 2
-                  }
-                })
-              },
-              {
-                minValue: 75,
-                maxValue: 999999,
-                symbol: new SimpleFillSymbol({
-                  color: [0, 0, 0, 0], // Transparent fill
-                  outline: {
-                    color: [128, 200, 240, 1], // Very light blue
+                    color: [64, 196, 255, 1], // Sky blue
                     width: 2
                   }
                 })
