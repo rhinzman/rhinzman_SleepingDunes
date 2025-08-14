@@ -163,25 +163,25 @@
           ]
         };
         
+        // Create legend widget after layers are added
+        const legend = new Legend({
+          view: view,
+          style: {
+            type: "card",
+            layout: "auto"
+          }
+        });
+        
+        // Add the legend to the bottom right corner
+        view.ui.add(legend, {
+          position: "bottom-right",
+          index: 0
+        });
+        
       });
       
       const searchWidget = new Search({
         view: view
-      });
-      
-      // Create legend widget
-      const legend = new Legend({
-        view: view,
-        style: {
-          type: "card",
-          layout: "auto"
-        }
-      });
-      
-      // Add the legend to the right side above the search widget
-      view.ui.add(legend, {
-        position: "mid-right",
-        index: 0
       });
       
       // Add the search widget to the bottom right corner of the view
