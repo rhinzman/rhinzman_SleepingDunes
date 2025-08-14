@@ -49,6 +49,27 @@
       color: #333;
     }
 
+    .image-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .sbd-image {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      margin-bottom: 8px;
+    }
+
+    .image-caption {
+      font-size: 12px;
+      color: #666;
+      font-style: italic;
+      margin: 5px 0 15px 0;
+    }
+
     .toggle-btn {
       position: absolute;
       z-index: 20;
@@ -96,9 +117,9 @@
     (esriConfig,Map, MapView,Search, Locate, FeatureLayer, WebMap) => {
       esriConfig.apiKey = "AAPKd744f2fda2e347d9a3cf7faf3473cfaczN_o6-pVEC0xDG9THThI-plcBTYdOZQwfAaWLFCk-7w8cNq-B8MvENgmb2NpNTXc";
       
-      // Create a simple map with hybrid basemap
+      // Create a simple map with OpenStreetMap basemap
       const map = new Map({
-        basemap: "hybrid"
+        basemap: "osm"
       });
       
       const view = new MapView({
@@ -182,6 +203,13 @@
     <div id="sidebar" class="sidebar">
       <div class="sidebar-content">
         <h2>Sleeping Bear Dunes National Lakeshore</h2>
+        
+        <!-- Add SBD Image -->
+        <div class="image-container">
+          <img src="../SBD.jpg" alt="Sleeping Bear Dunes" class="sbd-image" />
+          <p class="image-caption">Sleeping Bear Dunes National Lakeshore</p>
+        </div>
+        
         <p>
           Sleeping Bear Dunes National Lakeshore is a magnificent protected area located along the 
           northwestern coast of Michigan's Lower Peninsula. Established in 1970, this stunning 
