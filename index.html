@@ -140,6 +140,8 @@
         const featureLayer = new FeatureLayer({
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_013e4f22f11947f583db89fb1b391449/FeatureServer"
         });
+        // Exclude survey layer from legend
+        featureLayer.legendEnabled = false;
         map.add(featureLayer);
         
         // Add a popup template to the feature layer
@@ -206,7 +208,7 @@
       <div class="sidebar-content">
         <h2>Sleeping Bear Dunes National Lakeshore</h2>
         
-        <!-- Add SBD Image -->
+        <!-- Add Image -->
         <div class="image-container">
           <img src="C:/Users/ralha/Project2/SBD.jpg" alt="Sleeping Bear Dunes" class="sbd-image">
           <p class="image-caption">Sleeping Bear Dunes National Lakeshore</p>
