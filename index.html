@@ -110,11 +110,21 @@
       
       // Add layers after view loads
       view.when(() => {
-        // Your survey layer
+        // Add UW-Madison layer with sublayer 2 first (bottom layer)
+        const uwMadisonLayer = new FeatureLayer({
+          portalItem: {
+            id: "b489341a02814365a55222ff97716e96"
+          },
+          layerId: 2
+        });
+        map.add(uwMadisonLayer);
+        
+        // Your survey layer (added last to be on top)
         const featureLayer = new FeatureLayer({
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_013e4f22f11947f583db89fb1b391449/FeatureServer"
         });
         map.add(featureLayer);
+        
         // Add a popup template to the feature layer
         featureLayer.popupTemplate = {
           title: "{Name}",
@@ -133,15 +143,6 @@
             }
           ]
         };
-        
-        // Add UW-Madison layer with sublayer 2
-        const uwMadisonLayer = new FeatureLayer({
-          portalItem: {
-            id: "b489341a02814365a55222ff97716e96"
-          },
-          layerId: 2
-        });
-        map.add(uwMadisonLayer);
         
       });
       
